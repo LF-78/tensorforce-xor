@@ -8,7 +8,8 @@ from tensorforce.core.networks import layered_network_builder
 # SETUP
 episode_size = 20 # number of calculations
 training_length = 500 # number of episodes
-savefile = 'xor'
+savefile = 'xor_network'
+save_frequency = 100 # number of episodes
 
 # NETWORK
 input_layer = dict(shape=(2,), type='float')

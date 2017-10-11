@@ -2,9 +2,9 @@
 from xor_model import *  
 
 # LOAD SAVED MODEL
-if Path(savefile + '-10000.index').is_file():
+if Path(savefile + '.index').is_file():
     print('Loading saved model: '+savefile)
-    learn_agent.load_model(savefile + '-10000')
+    learn_agent.load_model(savefile)
     
     # EVALUATE LOOP
     while True:

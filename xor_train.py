@@ -2,9 +2,9 @@
 from xor_model import *  
 
 # LOAD SAVED MODEL
-if Path(savefile + '-10000.index').is_file():
+if Path(savefile + '.index').is_file():
     print('Loading saved model: '+savefile)
-    learn_agent.load_model(savefile + '-10000')
+    learn_agent.load_model(savefile)
 else:
     print('Saved model not found: '+savefile)
 
@@ -43,8 +43,8 @@ for j in range(training_length):
         episode_reward = episode_reward + step_reward
 
     print('Episode: ' + str(j) + ' / Reward: ' + str(episode_reward))
-
-# SAVE MODEL
-print('Saving model: '+savefile)
-learn_agent.save_model(savefile)
+    # SAVE MODEL
+    if (j+1) % save_frequency == 0:
+        print('Saving model: '+savefile)
+        learn_agent.model.save_model(savefile, False)
 
