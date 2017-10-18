@@ -8,6 +8,13 @@ if Path(savefile + '.index').is_file():
 else:
     print('Saved model not found: '+savefile)
 
+print('Training for: ' + str(training_length) + ' episodes')
+
+# STATS
+max_reward = float('-Inf')
+min_reward = float('Inf')
+tot_reward = 0
+
 # TRAINING LOOP
 for j in range(training_length):
     
@@ -43,8 +50,15 @@ for j in range(training_length):
         episode_reward = episode_reward + step_reward
 
     print('Episode: ' + str(j) + ' / Reward: ' + str(episode_reward))
-    # SAVE MODEL
+    max_reward = max(max_reward, episode_reward)
+    min_reward = min(min_reward, episode_reward)
+    tot_reward = tot_reward + episode_reward
+
+    # SAVE MODEL & STATS
     if (j+1) % save_frequency == 0:
-        print('Saving model: '+savefile)
+        print('Episodes: ' + str(j+1) + ' / AVG Reward: ' + str(tot_reward/save_frequency) + ' / MAX Reward: ' + str(max_reward) + ' / MIN Reward: ' + str(min_reward) + ' / Saving model: '+savefile)
         learn_agent.model.save_model(savefile, False)
+        max_reward = float('-Inf')
+        min_reward = float('Inf')
+        tot_reward = 0
 
